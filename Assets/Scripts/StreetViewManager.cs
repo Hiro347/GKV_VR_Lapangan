@@ -98,4 +98,32 @@ public class StreetViewManager : MonoBehaviour
             Debug.Log("Hidden infographic for: " + currentLoc.name);
         }
     }
+
+    public void ShowCustomInfographic(GameObject customPanel)
+    {
+        int index = currentLocationIndex;
+        if (locations == null || index < 0 || index >= locations.Length) return;
+
+        StreetViewLocation currentLoc = locations[index];
+        if (currentLoc.navigationUI != null)
+        {
+            currentLoc.navigationUI.SetActive(false); // Hide main buttons
+        }
+        customPanel.SetActive(true);
+        Debug.Log("Showing custom infographic: " + customPanel.name);
+    }
+
+    public void HideCustomInfographic(GameObject customPanel)
+    {
+        int index = currentLocationIndex;
+        if (locations == null || index < 0 || index >= locations.Length) return;
+
+        customPanel.SetActive(false);
+        StreetViewLocation currentLoc = locations[index];
+        if (currentLoc.navigationUI != null)
+        {
+            currentLoc.navigationUI.SetActive(true); // Bring back main buttons
+        }
+        Debug.Log("Hidden custom infographic: " + customPanel.name);
+    }
 }
