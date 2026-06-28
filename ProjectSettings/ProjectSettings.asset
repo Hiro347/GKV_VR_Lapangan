@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: My project
+  productName: GKV_VR_Lapangan
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -936,14 +936,14 @@ PlayerSettings:
   editorAssembliesCompatibilityLevel: 1
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: My project
+  metroPackageName: GKV_VR_Lapangan
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: My project
+  metroApplicationDescription: GKV_VR_Lapangan
   wsaImages: {}
   metroTileShortName: 
   metroTileShowName: 0
@@ -1025,7 +1025,7 @@ PlayerSettings:
   cloudProjectId: 4fcc39f6-d1a9-42dd-af61-6bf48d1a2499
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: My project
+  projectName: GKV_VR_Lapangan
   organizationId: aryafaiz108
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
