@@ -8,6 +8,7 @@ public class StreetViewManager : MonoBehaviour
         public string name;
         public Texture2D texture;
         public GameObject navigationUI;
+        public GameObject infographicUI; // Reference to the infographic panel for this location
     }
 
     [Header("Configuration")]
@@ -40,7 +41,6 @@ public class StreetViewManager : MonoBehaviour
         currentLocationIndex = index;
         StreetViewLocation targetLoc = locations[index];
 
-        // Swap texture on Sphere material
         if (sphereRenderer != null && sphereRenderer.material != null)
         {
             sphereRenderer.material.mainTexture = targetLoc.texture;
@@ -50,15 +50,52 @@ public class StreetViewManager : MonoBehaviour
             Debug.LogError("Sphere Renderer or Material is not assigned.");
         }
 
-        // Enable correct UI group, disable others
         for (int i = 0; i < locations.Length; i++)
         {
             if (locations[i].navigationUI != null)
             {
                 locations[i].navigationUI.SetActive(i == index);
             }
+            if (locations[i].infographicUI != null)
+            {
+                locations[i].infographicUI.SetActive(false); // Hide all infographics during transition
+            }
         }
 
         Debug.Log("Transitioned to: " + targetLoc.name);
+    }
+
+    public void ShowInfographic()
+    {
+        int index = currentLocationIndex;
+        if (locations == null || index < 0 || index >= locations.Length) return;
+
+        StreetViewLocation currentLoc = locations[index];
+        if (currentLoc.infographicUI != null)
+        {
+            if (currentLoc.navigationUI != null)
+            {
+                currentLoc.navigationUI.SetActive(false); // Hide main buttons
+            }
+            currentLoc.infographicUI.SetActive(true); // Show info panel
+            Debug.Log("Showing infographic for: " + currentLoc.name);
+        }
+    }
+
+    public void HideInfographic()
+    {
+        int index = currentLocationIndex;
+        if (locations == null || index < 0 || index >= locations.Length) return;
+
+        StreetViewLocation currentLoc = locations[index];
+        if (currentLoc.infographicUI != null)
+        {
+            currentLoc.infographicUI.SetActive(false); // Hide info panel
+            if (currentLoc.navigationUI != null)
+            {
+                currentLoc.navigationUI.SetActive(true); // Bring back main buttons
+            }
+            Debug.Log("Hidden infographic for: " + currentLoc.name);
+        }
     }
 }
