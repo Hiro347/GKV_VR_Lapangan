@@ -20,7 +20,16 @@ public class StreetViewManager : MonoBehaviour
 
     void Start()
     {
-        // Initialize at first location
+        InitializeButtonLabels();
+        AudioSource audioSource = GetComponent<AudioSource>();
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            UpdateMusicButtonsText("🔊 Pause Suara Lapangan");
+        }
+        else
+        {
+            UpdateMusicButtonsText("🔊 Putar Suara Lapangan");
+        }
         GoToLocation(0);
     }
 
@@ -62,7 +71,80 @@ public class StreetViewManager : MonoBehaviour
             }
         }
 
+        InitializeButtonLabels();
+        AudioSource audioSource = GetComponent<AudioSource>();
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            UpdateMusicButtonsText("🔊 Pause Suara Lapangan");
+        }
+        else
+        {
+            UpdateMusicButtonsText("🔊 Putar Suara Lapangan");
+        }
+
         Debug.Log("Transitioned to: " + targetLoc.name);
+    }
+
+    public void InitializeButtonLabels()
+    {
+        GameObject canvas = GameObject.Find("CanvasParent/Canvas");
+        if (canvas != null)
+        {
+            SetButtonLabel(canvas, "UI_Lapangan1/Btn_ToL2", "Ke Spot 2 GOR Lama");
+            SetButtonLabel(canvas, "UI_Lapangan1/Btn_Info", "Info Lapangan Basket");
+
+            SetButtonLabel(canvas, "UI_Lapangan2/Btn_ToL1", "Ke Spot 1 GOR Lama");
+            SetButtonLabel(canvas, "UI_Lapangan2/Btn_ToL3", "Ke Spot 3 GOR Lama");
+            SetButtonLabel(canvas, "UI_Lapangan2/Btn_Info", "Filosofi & Sejarah");
+
+            SetButtonLabel(canvas, "UI_Lapangan3/Btn_ToL2", "Ke Spot 2 GOR Lama");
+            SetButtonLabel(canvas, "UI_Lapangan3/Btn_Info", "Fakta Menarik");
+        }
+    }
+
+    private void SetButtonLabel(GameObject canvas, string buttonPath, string newLabel)
+    {
+        Transform btnTrans = canvas.transform.Find(buttonPath);
+        if (btnTrans != null)
+        {
+            TMPro.TextMeshProUGUI[] tmps = btnTrans.GetComponentsInChildren<TMPro.TextMeshProUGUI>(true);
+            foreach (var tmp in tmps)
+            {
+                if (tmp.gameObject.name.Contains("Text (TMP)"))
+                {
+                    tmp.text = newLabel;
+                }
+            }
+        }
+    }
+
+    public void ToggleMusic()
+    {
+        AudioSource audioSource = GetComponent<AudioSource>();
+        if (audioSource != null)
+        {
+            if (audioSource.isPlaying)
+            {
+                audioSource.Pause();
+                UpdateMusicButtonsText("🔊 Putar Suara Lapangan");
+            }
+            else
+            {
+                audioSource.Play();
+                UpdateMusicButtonsText("🔊 Pause Suara Lapangan");
+            }
+        }
+    }
+
+    public void UpdateMusicButtonsText(string newLabel)
+    {
+        GameObject canvas = GameObject.Find("CanvasParent/Canvas");
+        if (canvas != null)
+        {
+            SetButtonLabel(canvas, "UI_Lapangan1/Btn_MusicToggle", newLabel);
+            SetButtonLabel(canvas, "UI_Lapangan2/Btn_MusicToggle", newLabel);
+            SetButtonLabel(canvas, "UI_Lapangan3/Btn_MusicToggle", newLabel);
+        }
     }
 
     public void ShowInfographic()
